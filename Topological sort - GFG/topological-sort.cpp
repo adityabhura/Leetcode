@@ -6,39 +6,34 @@ using namespace std;
 class Solution
 {
 	public:
-	//Function to return list containing vertices in Topological order. 
+	//Function to return list containing vertices in Topological order.
+	
+	void DFSRec(bool visited[],vector<int> adj[],stack<int> &s,int u){
+        visited[u]=true;
+        for(int x:adj[u]){
+            if(visited[x]==false)DFSRec(visited,adj,s,x);
+        }
+        s.push(u);
+    }
+	
 	vector<int> topoSort(int v, vector<int> adj[]) 
 	{
 	    // code here
-	    int indegree[v]={0};
-	 
-	    for(int i=0;i<v;i++){
-	        for(int j=0;j<adj[i].size();j++){
-	            indegree[adj[i][j]]++;
-	        }
-	    }
-	    queue<int> q;
-	    for(int i=0;i<v;i++){
-	        if(indegree[i]==0)q.push(i);
-	    }
+	   stack<int> s;
 	    vector<int> ans;
-	    while(q.empty()==false){
-	        int u=q.front();
-	        q.pop();
-	        ans.push_back(u);
-	        for(int x:adj[u]){
-	            indegree[x]--;
-	            if(indegree[x]==0){
-	                q.push(x);
-	            }
-	        }
-	    }
-	    //if(ans.size()==v)
-	   // for(int i=0;i<ans.size();i++){
-	   //     cout<<ans[i]<<" ";
-	   // }
-	    //cout<<ans.size();
-	    return ans;
+        bool visited[v];
+        for(int i=0;i<v;i++){
+            visited[i]=false;
+        }
+        for(int i=0;i<v;i++){
+            if(visited[i]==false)
+                 DFSRec(visited,adj,s,i);
+        }
+       while(s.empty()==false){
+           ans.push_back(s.top());
+           s.pop();
+       }
+        return ans;
 	}
 };
 
