@@ -23,7 +23,6 @@ public:
             return multiply(b,ans);
         }
     }
-public:
     int numSubseq(vector<int>& nums, int target) {
         sort(nums.begin(),nums.end());
         int start=0,end=0;
