@@ -14,7 +14,7 @@ void merge(vector<int>& arr, int l,int r,int mid){
     long long int i=l;
     long long int j=mid+1;
     for(i;i<=mid;i++){
-while( j<=r && arr[i]>1ll*2*arr[j] ){
+        while( j<=r && arr[i]>1ll*2*arr[j] ){
                 j++;
         }
         ans+=(j-(mid+1));
