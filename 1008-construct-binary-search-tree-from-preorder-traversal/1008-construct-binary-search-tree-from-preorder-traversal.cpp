@@ -20,14 +20,13 @@ public:
         TreeNode* root=new TreeNode(preorder[s]);
 
         int index,rootValue=preorder[s];
-
         for(int i=s;i<=e;i++){
             if(preorder[i]>rootValue){
                 index=i;
                 break;
             }
         }
-
+    cout<<rootValue<<"-"<<index<<" ";
         root->left=solve2(preorder,s+1,index-1);
         root->right=solve2(preorder,index,e);
 
