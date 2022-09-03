@@ -8,7 +8,7 @@ public:
         int key=preorder[start_pre];
         int index;
         TreeNode* root=new TreeNode(key);
-        for(int i=start_in;i<end_in;i++){
+        for(int i=start_in;i<=end_in;i++){
             if(inorder[i]==key){
                 index=i;
                 break;
