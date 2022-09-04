@@ -10,33 +10,17 @@
  * };
  */
 class Solution {
-public:
-    TreeNode* solve2(vector<int>& preorder,int s,int e)
-
-    {
-
-        if(s>e)return NULL;
-
-        TreeNode* root=new TreeNode(preorder[s]);
-
-        int index,rootValue=preorder[s];
-        for(int i=s;i<=e;i++){
-            if(preorder[i]>rootValue){
-                index=i;
-                break;
-            }
-        }
-    cout<<rootValue<<"-"<<index<<" ";
-        root->left=solve2(preorder,s+1,index-1);
-        root->right=solve2(preorder,index,e);
-
-        
-
+    TreeNode* recur(vector<int>preorder,int& i,int bound){
+        if(preorder.size() == i || preorder[i] > bound)
+            return NULL;
+        TreeNode* root = new TreeNode(preorder[i++]);
+        root->left = recur(preorder,i,root->val);
+        root->right = recur(preorder,i,bound);
         return root;
-
     }
+public:
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        TreeNode* root=solve2(preorder,0,preorder.size()-1);
-        return root;
+        int i=0;
+        return recur(preorder,i,INT_MAX);
     }
 };
