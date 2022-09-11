@@ -1,30 +1,27 @@
 class Solution {
 public:
-    
-    void help (vector<int> &temp,vector<vector<int>> &ans,vector<int>& candidates,int target,int i,int n){
-        
-            if(target==0){
-                ans.push_back(temp);
-                return;
-            }
-         
-        for(int j=i;j<n;j++){
-            if(j>i && candidates[j]==candidates[j-1])continue;
-            if(candidates[j]>target)break;
-            
-            
-            temp.push_back(candidates[j]);
-            help(temp,ans,candidates,target-candidates[j],j+1,n);
-            temp.pop_back();
-        }
-        
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+    vector < vector < int >> ans;
+      vector < int > ds;
+        sort(candidates.begin(),candidates.end());
+      help(0, target, candidates, ans, ds);
+      return ans;
     }
     
-    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        sort(candidates.begin(),candidates.end());
-        vector<vector<int>> ans;
-        vector<int> temp;
-        help(temp,ans,candidates,target,0,candidates.size());
-        return ans;
+    
+    void help(int ind,int target,vector<int> &arr,vector<vector<int>> &ans, vector<int> &ds){
+            if (target == 0) {
+                ans.push_back(ds);
+                return;
+            }
+        
+        
+    for(int i=ind;i<arr.size();i++){
+        if(i>ind && arr[i]==arr[i-1])continue;
+        if (arr[i] > target)break;
+        ds.push_back(arr[i]);
+        help(i+1, target - arr[i], arr, ans, ds);
+        ds.pop_back();    
+    }
     }
 };
