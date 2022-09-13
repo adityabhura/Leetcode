@@ -1,29 +1,30 @@
 class Solution {
-private:
-	// Make them accessible everywhere in the class
-    vector<vector<int> > ans;
-    vector<int> nums;
+public:
     
-	// Recursive function
-    void helper(int i) {
+    void help(vector<int> &nums, vector<vector<int>> &ans, vector<int> &temp, int freq[]){
+        if(temp.size()==nums.size()){
+            ans.push_back(temp);
+            return;
+        }
         
-		// Here i will be the one which control the function
-		// It will check how many times the function gets call and if its is nums.size() means it prepared a permutation
-        if (i == nums.size()) ans.push_back(nums);
-        
-		// Swap and reswap the current index i with next indeces whie calling the function itself
-        for (int j = i; j < nums.size(); ++j) {
-            swap(nums[i], nums[j]);
-            helper(i + 1);
-            swap(nums[i], nums[j]);
+        for(int i=0;i<nums.size();i++){
+            if(freq[i]==0){
+                freq[i]=1;
+                temp.push_back(nums[i]);
+                help(nums,ans,temp,freq); 
+                freq[i]=0;
+                temp.pop_back();
+            }
         }
     }
     
-public:
     vector<vector<int>> permute(vector<int>& nums) {
-        // Set it private for class
-		this->nums = nums;
-        helper(0);
+        vector<vector<int>> ans;
+        vector<int> temp;
+        int freq[nums.size()];
+        for(int i=0;i<nums.size();i++) 
+            freq[i]= 0;
+        help(nums,ans,temp,freq); 
         return ans;
     }
 };
